@@ -66,7 +66,7 @@ arma::field<arma::mat> get_summary(arma::vec theta,
      V = cov_bootstrapper(theta,
                        desc, objdesc,
                        N, robust, eff,
-                       B, true);
+                       B, true, wv_empir.n_elem);
   }else if(bs_ci || bs_gof){
     arma::field<arma::mat> bs = all_bootstrapper(theta,
                                                  desc, objdesc,

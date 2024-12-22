@@ -4,8 +4,17 @@
 \alias{demo_lts}
 \title{Generate a Demo about the Latent Time Series}
 \usage{
-demo_lts(n, model, start = 0, end = NULL, freq = 1, unit = NULL,
-  name = NULL, process = NULL, ...)
+demo_lts(
+  n,
+  model,
+  start = 0,
+  end = NULL,
+  freq = 1,
+  unit = NULL,
+  name = NULL,
+  process = NULL,
+  ...
+)
 }
 \arguments{
 \item{n}{An \code{interger} indicating the amount of observations generated in this function.}

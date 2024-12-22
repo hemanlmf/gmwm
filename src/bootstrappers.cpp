@@ -58,9 +58,7 @@
 arma::mat cov_bootstrapper(const arma::vec&  theta,
                            const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc,
                            unsigned int N, bool robust, double eff,
-                           unsigned int H, bool diagonal_matrix){
-  unsigned int nb_level = floor(log2(N));
-  
+                           unsigned int H, bool diagonal_matrix, unsigned int nb_level){ 
   arma::mat res(nb_level, H);
   for(unsigned int i=0; i<H; i++){
     

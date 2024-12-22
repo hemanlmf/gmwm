@@ -4,17 +4,34 @@
 \alias{compare_wvar}
 \title{Compare Wavelet Variances}
 \usage{
-compare_wvar(..., background = "white", split = TRUE, CI = TRUE,
-  auto.label.wvar = T, transparence = 0.1, line.color = NULL,
-  CI.color = NULL, line.type = NULL, point.size = NULL,
-  point.shape = NULL, title = "Haar Wavelet Variance Representation",
-  title.size = 15, axis.label.size = 13, axis.tick.size = 11,
+compare_wvar(
+  ...,
+  background = "white",
+  split = TRUE,
+  CI = TRUE,
+  auto.label.wvar = T,
+  transparence = 0.1,
+  line.color = NULL,
+  CI.color = NULL,
+  line.type = NULL,
+  point.size = NULL,
+  point.shape = NULL,
+  title = "Haar Wavelet Variance Representation",
+  title.size = 15,
+  axis.label.size = 13,
+  axis.tick.size = 11,
   axis.x.label = expression(paste("Scale ", tau)),
   axis.y.label = expression(paste("Wavelet Variance ", nu)),
-  units = c(bquote(rad^2/s^2), bquote(m^2/s^4)), facet.label.size = 13,
-  facet.label.background = "#003C7D33", legend.label = NULL,
-  legend.title = "", legend.key.size = 1.3, legend.title.size = 13,
-  legend.text.size = 13, nrow = 1)
+  units = c(bquote(rad^2/s^2), bquote(m^2/s^4)),
+  facet.label.size = 13,
+  facet.label.background = "#003C7D33",
+  legend.label = NULL,
+  legend.title = "",
+  legend.key.size = 1.3,
+  legend.title.size = 13,
+  legend.text.size = 13,
+  nrow = 1
+)
 }
 \arguments{
 \item{...}{Any number of \code{wvar} or \code{wvar.imu} objects.}
@@ -83,7 +100,7 @@ invalid, since the graph is plot seperately and put in 2 rows by default.
 }
 \examples{
 \dontrun{
-## Case1: Supplied objects are \\code{wvar}:
+## Case1: Supplied objects are \code{wvar}:
 data1 = gen_gts(1000, AR1(phi = .32, sigma2=.01))
 data2 = gen_gts(2000, ARMA(ar=c(.8,.1), ma=c(.3), sigma2=1))
 data3 = gen_gts(4000, AR1(phi = .32, sigma2=1))
@@ -107,7 +124,7 @@ compare_wvar(wv1, wv2, wv3,
              line.color = color, CI.color = color, 
              legend.label = label, split = FALSE)
 
-## Case2: Supplied objects are \\code{wvar.imu}:
+## Case2: Supplied objects are \code{wvar.imu}:
 if(!require("imudata")){
    install_imudata()
    library("imudata")

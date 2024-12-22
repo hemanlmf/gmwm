@@ -560,8 +560,8 @@ auto_imu_cpp <- function(data, combs, full_model, alpha, compute_v, model_type, 
 #' @keywords internal
 #' @examples
 #' # Coming soon
-cov_bootstrapper <- function(theta, desc, objdesc, N, robust, eff, H, diagonal_matrix) {
-    .Call('_gmwm_cov_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, N, robust, eff, H, diagonal_matrix)
+cov_bootstrapper <- function(theta, desc, objdesc, N, robust, eff, H, diagonal_matrix, nb_level) {
+    .Call('_gmwm_cov_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, N, robust, eff, H, diagonal_matrix, nb_level)
 }
 
 #' @title Bootstrap for Optimism

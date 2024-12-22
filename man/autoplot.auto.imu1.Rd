@@ -4,15 +4,28 @@
 \alias{autoplot.auto.imu1}
 \title{Automatic Model Selection Results of IMU Object without Decomposed Processes}
 \usage{
-\method{autoplot}{auto.imu1}(object, CI = TRUE, background = "white",
-  transparence = 0.1, line.color = NULL, line.type = NULL,
-  point.size = NULL, point.shape = NULL, CI.color = "#003C7D",
-  title = "Automatic Model Selection Results", title.size = 15,
-  axis.label.size = 13, axis.tick.size = 11,
+\method{autoplot}{auto.imu1}(
+  object,
+  CI = TRUE,
+  background = "white",
+  transparence = 0.1,
+  line.color = NULL,
+  line.type = NULL,
+  point.size = NULL,
+  point.shape = NULL,
+  CI.color = "#003C7D",
+  title = "Automatic Model Selection Results",
+  title.size = 15,
+  axis.label.size = 13,
+  axis.tick.size = 11,
   axis.x.label = expression(paste("Scale ", tau)),
   axis.y.label = expression(paste("Wavelet Variance ", nu)),
-  units = c(bquote(rad^2/s^2), bquote(m^2/s^4)), facet.label.size = 13,
-  facet.label.background = "#003C7D33", scales = "free_y", ...)
+  units = c(bquote(rad^2/s^2), bquote(m^2/s^4)),
+  facet.label.size = 13,
+  facet.label.background = "#003C7D33",
+  scales = "free_y",
+  ...
+)
 }
 \arguments{
 \item{object}{A \code{auto.imu} object}

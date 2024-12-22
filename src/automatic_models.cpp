@@ -443,7 +443,7 @@ arma::field<arma::field<arma::mat> > model_select(arma::vec& data,
   }else{
     
     Rcpp::Rcout << "Bootstrapping the covariance matrix... Please stand by." << std::endl;
-    V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false); // Bootstrapped V (largest model)
+    V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false, floor(log2(N))); // Bootstrapped V (largest model)
     
     // Calculate the model score according to model selection criteria paper
     results.row(full_model_index) = asympt_calc(theta, desc, objdesc, model_type, scales, V, omega, wv_empir, theo, obj_value);

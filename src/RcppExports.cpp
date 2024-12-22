@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // e_drift
 arma::vec e_drift(double omega, int n_ts);
 RcppExport SEXP _gmwm_e_drift(SEXP omegaSEXP, SEXP n_tsSEXP) {
@@ -431,8 +436,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // cov_bootstrapper
-arma::mat cov_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, unsigned int N, bool robust, double eff, unsigned int H, bool diagonal_matrix);
-RcppExport SEXP _gmwm_cov_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP HSEXP, SEXP diagonal_matrixSEXP) {
+arma::mat cov_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, unsigned int N, bool robust, double eff, unsigned int H, bool diagonal_matrix, unsigned int nb_level);
+RcppExport SEXP _gmwm_cov_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP HSEXP, SEXP diagonal_matrixSEXP, SEXP nb_levelSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -444,7 +449,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type H(HSEXP);
     Rcpp::traits::input_parameter< bool >::type diagonal_matrix(diagonal_matrixSEXP);
-    rcpp_result_gen = Rcpp::wrap(cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, diagonal_matrix));
+    Rcpp::traits::input_parameter< unsigned int >::type nb_level(nb_levelSEXP);
+    rcpp_result_gen = Rcpp::wrap(cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, diagonal_matrix, nb_level));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -2349,7 +2355,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gmwm_find_full_model", (DL_FUNC) &_gmwm_find_full_model, 1},
     {"_gmwm_rank_models_cpp", (DL_FUNC) &_gmwm_rank_models_cpp, 13},
     {"_gmwm_auto_imu_cpp", (DL_FUNC) &_gmwm_auto_imu_cpp, 13},
-    {"_gmwm_cov_bootstrapper", (DL_FUNC) &_gmwm_cov_bootstrapper, 8},
+    {"_gmwm_cov_bootstrapper", (DL_FUNC) &_gmwm_cov_bootstrapper, 9},
     {"_gmwm_optimism_bootstrapper", (DL_FUNC) &_gmwm_optimism_bootstrapper, 10},
     {"_gmwm_opt_n_gof_bootstrapper", (DL_FUNC) &_gmwm_opt_n_gof_bootstrapper, 10},
     {"_gmwm_gmwm_sd_bootstrapper", (DL_FUNC) &_gmwm_gmwm_sd_bootstrapper, 10},

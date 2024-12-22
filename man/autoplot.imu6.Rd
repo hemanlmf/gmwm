@@ -4,15 +4,27 @@
 \alias{autoplot.imu6}
 \title{Plot the Wavelet Variances of IMU Object in Split Type}
 \usage{
-\method{autoplot}{imu6}(object, CI = TRUE, background = "white",
-  transparence = 0.1, line.color = NULL, line.type = NULL,
-  point.size = NULL, point.shape = NULL, CI.color = "#003C7D",
-  title = "Haar Wavelet Variance Representation", title.size = 15,
-  axis.label.size = 13, axis.tick.size = 11,
+\method{autoplot}{imu6}(
+  object,
+  CI = TRUE,
+  background = "white",
+  transparence = 0.1,
+  line.color = NULL,
+  line.type = NULL,
+  point.size = NULL,
+  point.shape = NULL,
+  CI.color = "#003C7D",
+  title = "Haar Wavelet Variance Representation",
+  title.size = 15,
+  axis.label.size = 13,
+  axis.tick.size = 11,
   axis.x.label = expression(paste("Scale ", tau)),
   axis.y.label = expression(paste("Wavelet Variance ", nu)),
-  facet.label.size = 13, facet.label.background = "#003C7D33",
-  scales = "free_y", ...)
+  facet.label.size = 13,
+  facet.label.background = "#003C7D33",
+  scales = "free_y",
+  ...
+)
 }
 \arguments{
 \item{object}{A \code{wvar.imu} object}

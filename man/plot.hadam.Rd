@@ -4,15 +4,30 @@
 \alias{plot.hadam}
 \title{Wrapper to ggplot Hadamard Variance Graph}
 \usage{
-\method{plot}{hadam}(x, CI = F, transparence = 0.1,
-  background = "white", bw = F, CI.color = "#003C7D",
-  line.type = NULL, line.color = NULL, point.size = NULL,
-  point.shape = NULL, title = NULL, title.size = 15,
-  axis.label.size = 13, axis.tick.size = 11,
+\method{plot}{hadam}(
+  x,
+  CI = F,
+  transparence = 0.1,
+  background = "white",
+  bw = F,
+  CI.color = "#003C7D",
+  line.type = NULL,
+  line.color = NULL,
+  point.size = NULL,
+  point.shape = NULL,
+  title = NULL,
+  title.size = 15,
+  axis.label.size = 13,
+  axis.tick.size = 11,
   axis.x.label = expression("Cluster " ~ tau ~ "(sec)"),
   axis.y.label = expression("Hadamard Variance " ~ phi[tau]),
-  legend.title = "", legend.label = NULL, legend.key.size = 1,
-  legend.title.size = 13, legend.text.size = 13, ...)
+  legend.title = "",
+  legend.label = NULL,
+  legend.key.size = 1,
+  legend.title.size = 13,
+  legend.text.size = 13,
+  ...
+)
 }
 \arguments{
 \item{x}{A \code{hadam} object.}

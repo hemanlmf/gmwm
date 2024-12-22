@@ -36,6 +36,14 @@ We would like to thank the following individuals for their contributions and adv
 Furthermore, we are also greatful to Dr. Jan Skaloud and Philipp Clausen of Geodetic Engineering Laboratory (TOPO), Swiss Federal Institute of Technology Lausanne (EPFL), topo.epfl.ch, Tel:+41(0)21 693 27 55 for providing data, which motivated the research and development of this package.
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/SMAC-Group/gmwm}
+  \item Report bugs at \url{https://github.com/SMAC-Group/gmwm/issues}
+}
+
+}
 \author{
 James Balamuta \email{balamut2@illinois.edu},
 Stephane Guerrier \email{Stephane.Guerrier@unige.ch},

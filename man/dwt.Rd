@@ -4,8 +4,13 @@
 \alias{dwt}
 \title{Discrete Wavelet Transform}
 \usage{
-dwt(x, nlevels = floor(log2(length(x))), filter = "haar",
-  boundary = "periodic", bw = TRUE)
+dwt(
+  x,
+  nlevels = floor(log2(length(x))),
+  filter = "haar",
+  boundary = "periodic",
+  bw = TRUE
+)
 }
 \arguments{
 \item{x}{A \code{vector} with dimensions N x 1.}

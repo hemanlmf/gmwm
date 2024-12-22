@@ -180,7 +180,7 @@ arma::field<arma::mat> gmwm_update_cpp(arma::vec theta,
   if(compute_v == "bootstrap"){
     for(unsigned int k = 0; k < K; k++){
         // False here means we create the "full V" matrix
-        V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false);
+        V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false, wv_empir.n_elem);
         omega = arma::inv(diagmat(V));
         
         // The theta update in this case MUST not use Yannick's starting algorithm. Hence, the false value.
@@ -386,7 +386,7 @@ arma::field<arma::mat> gmwm_master_cpp(arma::vec& data,
   if(compute_v == "bootstrap"){
     for(unsigned int k = 0; k < K; k++){
       // Create the full V matrix
-      V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false);
+      V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false, nlevels);
       
       // Update the omega matrix
       omega = arma::inv(diagmat(V));
@@ -538,7 +538,7 @@ arma::field<arma::mat> gmwm_master_wv_cpp(arma::mat wvar,
   if(compute_v == "bootstrap"){
     for(unsigned int k = 0; k < K; k++){
       // Create the full V matrix
-      V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false);
+      V = cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, false, nlevels);
       
       // Update the omega matrix
       omega = arma::inv(diagmat(V));

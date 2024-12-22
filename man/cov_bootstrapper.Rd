@@ -4,7 +4,17 @@
 \alias{cov_bootstrapper}
 \title{Bootstrap for Matrix V}
 \usage{
-cov_bootstrapper(theta, desc, objdesc, N, robust, eff, H, diagonal_matrix)
+cov_bootstrapper(
+  theta,
+  desc,
+  objdesc,
+  N,
+  robust,
+  eff,
+  H,
+  diagonal_matrix,
+  nb_level
+)
 }
 \arguments{
 \item{theta}{A \code{vector} with dimensions N x 1 that contains user-supplied initial values for parameters}

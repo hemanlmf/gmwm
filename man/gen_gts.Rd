@@ -4,8 +4,7 @@
 \alias{gen_gts}
 \title{Create a GMWM TS Object based on model}
 \usage{
-gen_gts(n, model, start = 0, end = NULL, freq = 1, unit = NULL,
-  name = NULL)
+gen_gts(n, model, start = 0, end = NULL, freq = 1, unit = NULL, name = NULL)
 }
 \arguments{
 \item{n}{An \code{interger} containing the amount of observations for the time series.}
