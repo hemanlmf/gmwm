@@ -21,7 +21,8 @@ gmwm_update_cpp(
   H,
   G,
   robust,
-  eff
+  eff,
+  method_optim
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ gmwm_update_cpp(
 \item{scales}{A \code{vec} that contains the scales or taus (2^(1:J))}
 
 \item{starting}{A \code{bool} that indicates whether we guessed starting (T) or the user supplied estimates (F).}
+
+\item{method_optim}{A \code{string} that changes the method in [stats::optim()].}
 
 \item{wv_empir}{A \code{vec} that contains the empirical wavelet variance}
 

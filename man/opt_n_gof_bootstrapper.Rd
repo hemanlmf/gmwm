@@ -14,7 +14,8 @@ opt_n_gof_bootstrapper(
   robust,
   eff,
   alpha,
-  H
+  H,
+  method_optim
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ opt_n_gof_bootstrapper(
 \item{eff}{A \code{double} that handles efficiency.}
 
 \item{H}{A \code{int} that indicates how many bootstraps should be obtained.}
+
+\item{method_optim}{A \code{string} that changes the method in [stats::optim()].}
 }
 \value{
 A \code{vec} that contains the parameter estimates from GMWM estimator.

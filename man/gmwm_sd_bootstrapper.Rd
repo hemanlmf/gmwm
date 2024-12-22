@@ -14,7 +14,8 @@ gmwm_sd_bootstrapper(
   robust,
   eff,
   alpha,
-  H
+  H,
+  method_optim
 )
 }
 \arguments{

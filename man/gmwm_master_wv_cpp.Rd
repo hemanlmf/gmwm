@@ -21,7 +21,8 @@ gmwm_master_wv_cpp(
   H,
   G,
   robust,
-  eff
+  eff,
+  method_optim
 )
 }
 \arguments{
@@ -58,6 +59,8 @@ gmwm_master_wv_cpp(
 \item{robust}{A \code{bool} that indicates whether the estimation should be robust or not.}
 
 \item{eff}{A \code{double} that specifies the amount of efficiency required by the robust estimator.}
+
+\item{method_optim}{A \code{string} that changes the method in [stats::optim()].}
 }
 \value{
 A \code{field<mat>} that contains a list of ever-changing estimates...

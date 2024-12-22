@@ -12,7 +12,8 @@ gmwm_engine(
   wv_empir,
   omega,
   scales,
-  starting
+  starting,
+  method_optim
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ gmwm_engine(
 \item{scales}{A \code{vec} that contains the scales or taus (2^(1:J))}
 
 \item{starting}{A \code{bool} that indicates whether we guessed starting (T) or the user supplied estimates (F).}
+
+\item{method_optim}{A \code{string} that changes the method in [stats::optim()].}
 }
 \value{
 A \code{vec} that contains the parameter estimates from GMWM estimator.

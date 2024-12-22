@@ -455,8 +455,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // optimism_bootstrapper
-arma::mat optimism_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H);
-RcppExport SEXP _gmwm_optimism_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP) {
+arma::mat optimism_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H, std::string method_optim);
+RcppExport SEXP _gmwm_optimism_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -470,13 +470,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(optimism_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(optimism_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
 // opt_n_gof_bootstrapper
-arma::field<arma::mat> opt_n_gof_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H);
-RcppExport SEXP _gmwm_opt_n_gof_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP) {
+arma::field<arma::mat> opt_n_gof_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H, std::string method_optim);
+RcppExport SEXP _gmwm_opt_n_gof_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -490,13 +491,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(opt_n_gof_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(opt_n_gof_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
 // gmwm_sd_bootstrapper
-arma::vec gmwm_sd_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H);
-RcppExport SEXP _gmwm_gmwm_sd_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP) {
+arma::vec gmwm_sd_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H, std::string method_optim);
+RcppExport SEXP _gmwm_gmwm_sd_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -510,7 +512,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(gmwm_sd_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(gmwm_sd_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -529,8 +532,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // gmwm_param_bootstrapper
-arma::field<arma::mat> gmwm_param_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H);
-RcppExport SEXP _gmwm_gmwm_param_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP) {
+arma::field<arma::mat> gmwm_param_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H, std::string method_optim);
+RcppExport SEXP _gmwm_gmwm_param_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -544,13 +547,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(gmwm_param_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(gmwm_param_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
 // all_bootstrapper
-arma::field<arma::mat> all_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H);
-RcppExport SEXP _gmwm_all_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP) {
+arma::field<arma::mat> all_bootstrapper(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, const arma::vec& scales, std::string model_type, unsigned int N, bool robust, double eff, double alpha, unsigned int H, std::string method_optim);
+RcppExport SEXP _gmwm_all_bootstrapper(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP scalesSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP HSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -564,7 +568,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(all_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(all_bootstrapper(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -872,8 +877,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // gmwm_engine
-arma::vec gmwm_engine(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, arma::vec wv_empir, arma::mat omega, arma::vec scales, bool starting);
-RcppExport SEXP _gmwm_gmwm_engine(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP wv_empirSEXP, SEXP omegaSEXP, SEXP scalesSEXP, SEXP startingSEXP) {
+arma::vec gmwm_engine(const arma::vec& theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, arma::vec wv_empir, arma::mat omega, arma::vec scales, bool starting, std::string method_optim);
+RcppExport SEXP _gmwm_gmwm_engine(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP wv_empirSEXP, SEXP omegaSEXP, SEXP scalesSEXP, SEXP startingSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -885,13 +890,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::mat >::type omega(omegaSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type scales(scalesSEXP);
     Rcpp::traits::input_parameter< bool >::type starting(startingSEXP);
-    rcpp_result_gen = Rcpp::wrap(gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, starting));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, starting, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
 // gmwm_update_cpp
-arma::field<arma::mat> gmwm_update_cpp(arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, unsigned int N, double expect_diff, double ranged, const arma::mat& orgV, const arma::vec& scales, const arma::mat& wv, bool starting, std::string compute_v, unsigned int K, unsigned int H, unsigned int G, bool robust, double eff);
-RcppExport SEXP _gmwm_gmwm_update_cpp(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP expect_diffSEXP, SEXP rangedSEXP, SEXP orgVSEXP, SEXP scalesSEXP, SEXP wvSEXP, SEXP startingSEXP, SEXP compute_vSEXP, SEXP KSEXP, SEXP HSEXP, SEXP GSEXP, SEXP robustSEXP, SEXP effSEXP) {
+arma::field<arma::mat> gmwm_update_cpp(arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, unsigned int N, double expect_diff, double ranged, const arma::mat& orgV, const arma::vec& scales, const arma::mat& wv, bool starting, std::string compute_v, unsigned int K, unsigned int H, unsigned int G, bool robust, double eff, std::string method_optim);
+RcppExport SEXP _gmwm_gmwm_update_cpp(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP NSEXP, SEXP expect_diffSEXP, SEXP rangedSEXP, SEXP orgVSEXP, SEXP scalesSEXP, SEXP wvSEXP, SEXP startingSEXP, SEXP compute_vSEXP, SEXP KSEXP, SEXP HSEXP, SEXP GSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -912,13 +918,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< unsigned int >::type G(GSEXP);
     Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
-    rcpp_result_gen = Rcpp::wrap(gmwm_update_cpp(theta, desc, objdesc, model_type, N, expect_diff, ranged, orgV, scales, wv, starting, compute_v, K, H, G, robust, eff));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(gmwm_update_cpp(theta, desc, objdesc, model_type, N, expect_diff, ranged, orgV, scales, wv, starting, compute_v, K, H, G, robust, eff, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
 // gmwm_master_cpp
-arma::field<arma::mat> gmwm_master_cpp(arma::vec& data, arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, bool starting, double alpha, std::string compute_v, unsigned int K, unsigned int H, unsigned int G, bool robust, double eff);
-RcppExport SEXP _gmwm_gmwm_master_cpp(SEXP dataSEXP, SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP startingSEXP, SEXP alphaSEXP, SEXP compute_vSEXP, SEXP KSEXP, SEXP HSEXP, SEXP GSEXP, SEXP robustSEXP, SEXP effSEXP) {
+arma::field<arma::mat> gmwm_master_cpp(arma::vec& data, arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, bool starting, double alpha, std::string compute_v, unsigned int K, unsigned int H, unsigned int G, bool robust, double eff, std::string method_optim);
+RcppExport SEXP _gmwm_gmwm_master_cpp(SEXP dataSEXP, SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP startingSEXP, SEXP alphaSEXP, SEXP compute_vSEXP, SEXP KSEXP, SEXP HSEXP, SEXP GSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -935,13 +942,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< unsigned int >::type G(GSEXP);
     Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
-    rcpp_result_gen = Rcpp::wrap(gmwm_master_cpp(data, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(gmwm_master_cpp(data, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
 // gmwm_master_wv_cpp
-arma::field<arma::mat> gmwm_master_wv_cpp(arma::mat wvar, unsigned int N, double expect_diff, arma::mat omega, double ranged, arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, bool starting, double alpha, std::string compute_v, unsigned int K, unsigned int H, unsigned int G, bool robust, double eff);
-RcppExport SEXP _gmwm_gmwm_master_wv_cpp(SEXP wvarSEXP, SEXP NSEXP, SEXP expect_diffSEXP, SEXP omegaSEXP, SEXP rangedSEXP, SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP startingSEXP, SEXP alphaSEXP, SEXP compute_vSEXP, SEXP KSEXP, SEXP HSEXP, SEXP GSEXP, SEXP robustSEXP, SEXP effSEXP) {
+arma::field<arma::mat> gmwm_master_wv_cpp(arma::mat wvar, unsigned int N, double expect_diff, arma::mat omega, double ranged, arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, bool starting, double alpha, std::string compute_v, unsigned int K, unsigned int H, unsigned int G, bool robust, double eff, std::string method_optim);
+RcppExport SEXP _gmwm_gmwm_master_wv_cpp(SEXP wvarSEXP, SEXP NSEXP, SEXP expect_diffSEXP, SEXP omegaSEXP, SEXP rangedSEXP, SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP startingSEXP, SEXP alphaSEXP, SEXP compute_vSEXP, SEXP KSEXP, SEXP HSEXP, SEXP GSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -962,7 +970,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< unsigned int >::type G(GSEXP);
     Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
     Rcpp::traits::input_parameter< double >::type eff(effSEXP);
-    rcpp_result_gen = Rcpp::wrap(gmwm_master_wv_cpp(wvar, N, expect_diff, omega, ranged, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(gmwm_master_wv_cpp(wvar, N, expect_diff, omega, ranged, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1130,8 +1139,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // gof_test
-arma::vec gof_test(arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, const arma::vec& tau, const arma::mat& v_hat, const arma::vec& wv_empir);
-RcppExport SEXP _gmwm_gof_test(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP tauSEXP, SEXP v_hatSEXP, SEXP wv_empirSEXP) {
+arma::vec gof_test(arma::vec theta, const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type, const arma::vec& tau, const arma::mat& v_hat, const arma::vec& wv_empir, std::string method_optim);
+RcppExport SEXP _gmwm_gof_test(SEXP thetaSEXP, SEXP descSEXP, SEXP objdescSEXP, SEXP model_typeSEXP, SEXP tauSEXP, SEXP v_hatSEXP, SEXP wv_empirSEXP, SEXP method_optimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -1142,7 +1151,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type tau(tauSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type v_hat(v_hatSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type wv_empir(wv_empirSEXP);
-    rcpp_result_gen = Rcpp::wrap(gof_test(theta, desc, objdesc, model_type, tau, v_hat, wv_empir));
+    Rcpp::traits::input_parameter< std::string >::type method_optim(method_optimSEXP);
+    rcpp_result_gen = Rcpp::wrap(gof_test(theta, desc, objdesc, model_type, tau, v_hat, wv_empir, method_optim));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -2356,12 +2366,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gmwm_rank_models_cpp", (DL_FUNC) &_gmwm_rank_models_cpp, 13},
     {"_gmwm_auto_imu_cpp", (DL_FUNC) &_gmwm_auto_imu_cpp, 13},
     {"_gmwm_cov_bootstrapper", (DL_FUNC) &_gmwm_cov_bootstrapper, 9},
-    {"_gmwm_optimism_bootstrapper", (DL_FUNC) &_gmwm_optimism_bootstrapper, 10},
-    {"_gmwm_opt_n_gof_bootstrapper", (DL_FUNC) &_gmwm_opt_n_gof_bootstrapper, 10},
-    {"_gmwm_gmwm_sd_bootstrapper", (DL_FUNC) &_gmwm_gmwm_sd_bootstrapper, 10},
+    {"_gmwm_optimism_bootstrapper", (DL_FUNC) &_gmwm_optimism_bootstrapper, 11},
+    {"_gmwm_opt_n_gof_bootstrapper", (DL_FUNC) &_gmwm_opt_n_gof_bootstrapper, 11},
+    {"_gmwm_gmwm_sd_bootstrapper", (DL_FUNC) &_gmwm_gmwm_sd_bootstrapper, 11},
     {"_gmwm_boot_pval_gof", (DL_FUNC) &_gmwm_boot_pval_gof, 4},
-    {"_gmwm_gmwm_param_bootstrapper", (DL_FUNC) &_gmwm_gmwm_param_bootstrapper, 10},
-    {"_gmwm_all_bootstrapper", (DL_FUNC) &_gmwm_all_bootstrapper, 10},
+    {"_gmwm_gmwm_param_bootstrapper", (DL_FUNC) &_gmwm_gmwm_param_bootstrapper, 11},
+    {"_gmwm_all_bootstrapper", (DL_FUNC) &_gmwm_all_bootstrapper, 11},
     {"_gmwm_Mod_squared_cpp", (DL_FUNC) &_gmwm_Mod_squared_cpp, 1},
     {"_gmwm_Mod_cpp", (DL_FUNC) &_gmwm_Mod_cpp, 1},
     {"_gmwm_compute_cov_cpp", (DL_FUNC) &_gmwm_compute_cov_cpp, 5},
@@ -2384,10 +2394,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gmwm_gen_model", (DL_FUNC) &_gmwm_gen_model, 4},
     {"_gmwm_gen_lts_cpp", (DL_FUNC) &_gmwm_gen_lts_cpp, 4},
     {"_gmwm_code_zero", (DL_FUNC) &_gmwm_code_zero, 1},
-    {"_gmwm_gmwm_engine", (DL_FUNC) &_gmwm_gmwm_engine, 8},
-    {"_gmwm_gmwm_update_cpp", (DL_FUNC) &_gmwm_gmwm_update_cpp, 17},
-    {"_gmwm_gmwm_master_cpp", (DL_FUNC) &_gmwm_gmwm_master_cpp, 13},
-    {"_gmwm_gmwm_master_wv_cpp", (DL_FUNC) &_gmwm_gmwm_master_wv_cpp, 17},
+    {"_gmwm_gmwm_engine", (DL_FUNC) &_gmwm_gmwm_engine, 9},
+    {"_gmwm_gmwm_update_cpp", (DL_FUNC) &_gmwm_gmwm_update_cpp, 18},
+    {"_gmwm_gmwm_master_cpp", (DL_FUNC) &_gmwm_gmwm_master_cpp, 14},
+    {"_gmwm_gmwm_master_wv_cpp", (DL_FUNC) &_gmwm_gmwm_master_wv_cpp, 18},
     {"_gmwm_guess_initial", (DL_FUNC) &_gmwm_guess_initial, 10},
     {"_gmwm_ar1_draw", (DL_FUNC) &_gmwm_ar1_draw, 4},
     {"_gmwm_arma_draws", (DL_FUNC) &_gmwm_arma_draws, 3},
@@ -2399,7 +2409,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gmwm_calculate_psi_matrix", (DL_FUNC) &_gmwm_calculate_psi_matrix, 3},
     {"_gmwm_format_ci", (DL_FUNC) &_gmwm_format_ci, 3},
     {"_gmwm_theta_ci", (DL_FUNC) &_gmwm_theta_ci, 5},
-    {"_gmwm_gof_test", (DL_FUNC) &_gmwm_gof_test, 7},
+    {"_gmwm_gof_test", (DL_FUNC) &_gmwm_gof_test, 8},
     {"_gmwm_bootstrap_gof_test", (DL_FUNC) &_gmwm_bootstrap_gof_test, 4},
     {"_gmwm_lm_arma", (DL_FUNC) &_gmwm_lm_arma, 2},
     {"_gmwm_lm_dr", (DL_FUNC) &_gmwm_lm_dr, 1},

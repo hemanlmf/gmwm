@@ -433,7 +433,7 @@ arma::field<arma::mat> all_bootstrapper(const arma::vec&  theta,
                                          wv_empir, omega, scales, true, method_optim);
     
     // Obtain the objective value function
-    obj_values(i) = getObjFun(est_starting, desc, objdesc, model_type, omega, wv_empir, scales, method_optim); 
+    obj_values(i) = getObjFun(est_starting, desc, objdesc, model_type, omega, wv_empir, scales); 
     
     // Decomposition of the WV.
     theo.col(i) = theoretical_wv(est, desc, objdesc, scales);

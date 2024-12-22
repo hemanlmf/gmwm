@@ -110,7 +110,7 @@ wvar4gmwm = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, alpha
 #' @export
 gmwm2 = function(model, wv, model.type="imu", compute.v="auto", remove_scales = NULL,
                 robust=FALSE, eff=0.6, alpha = 0.05, seed = 1337, G = NULL, K = 1, H = 100,
-                freq = 1){
+                freq = 1, method_optim="CG"){
   
   # ADD SOME CHECKS HERE!
   if (!is.null(remove_scales)){
@@ -262,7 +262,7 @@ gmwm2 = function(model, wv, model.type="imu", compute.v="auto", remove_scales = 
               wv$N, wv$mean_diff, wv$Omega, wv$ranged,
               theta, desc, obj, model.type, starting = model$starting,
               p = alpha, compute_v = compute.v, K = K, H = H, G = G,
-              robust=robust, eff = eff)
+              robust=robust, eff = eff, method_optim=method_optim)
   
   estimate = out[[1]]
   rownames(estimate) = model$process.desc
@@ -621,7 +621,7 @@ gmwm = function(model, data, model.type="imu", compute.v="auto",
     # Standard GMWM using data as input
     out = .Call('_gmwm_gmwm_master_cpp', PACKAGE = 'gmwm', data, theta, desc, obj, model.type, starting = model$starting,
                 p = alpha, compute_v = compute.v, K = K, H = H, G = G,
-                robust=robust, eff = eff)
+                robust=robust, eff = eff, method_optim="CG")
     estimate = out[[1]]
     rownames(estimate) = model$process.desc
     colnames(estimate) = "Estimates" 
@@ -807,7 +807,7 @@ update.gmwm = function(object, model, ...){
                   model$starting, 
                   object$compute.v, object$K, object$H,
                   object$G, 
-                  object$robust, object$eff)
+                  object$robust, object$eff, method_optim="CG")
 
   estimate = out[[1]]
   

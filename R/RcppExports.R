@@ -576,8 +576,8 @@ cov_bootstrapper <- function(theta, desc, objdesc, N, robust, eff, H, diagonal_m
 #' @keywords internal
 #' @examples
 #' # Coming soon
-optimism_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H) {
-    .Call('_gmwm_optimism_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H)
+optimism_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim) {
+    .Call('_gmwm_optimism_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim)
 }
 
 #' @title Bootstrap for Optimism and GoF
@@ -591,6 +591,7 @@ optimism_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, r
 #' @param robust A \code{bool} indicating robust (T) or classical (F).
 #' @param eff A \code{double} that handles efficiency.
 #' @param H A \code{int} that indicates how many bootstraps should be obtained.
+#' @param method_optim A \code{string} that changes the method in [stats::optim()].
 #' @return A \code{vec} that contains the parameter estimates from GMWM estimator.
 #' @details
 #' Expand in detail...  
@@ -598,8 +599,8 @@ optimism_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, r
 #' @keywords internal
 #' @examples
 #' # Coming soon
-opt_n_gof_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H) {
-    .Call('_gmwm_opt_n_gof_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H)
+opt_n_gof_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim) {
+    .Call('_gmwm_opt_n_gof_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim)
 }
 
 #' @title Bootstrap for Standard Deviations of Theta Estimates
@@ -614,8 +615,8 @@ opt_n_gof_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, 
 #' @keywords internal
 #' @examples
 #' # Coming soon
-gmwm_sd_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H) {
-    .Call('_gmwm_gmwm_sd_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H)
+gmwm_sd_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim) {
+    .Call('_gmwm_gmwm_sd_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim)
 }
 
 #' @title Generate the Confidence Interval for GOF Bootstrapped
@@ -642,8 +643,8 @@ boot_pval_gof <- function(obj, obj_boot, B = 1000L, alpha = 0.05) {
 #' @keywords internal
 #' @examples
 #' # Coming soon
-gmwm_param_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H) {
-    .Call('_gmwm_gmwm_param_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H)
+gmwm_param_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim) {
+    .Call('_gmwm_gmwm_param_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim)
 }
 
 #' @title Bootstrap for Everything!
@@ -658,8 +659,8 @@ gmwm_param_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N,
 #' @keywords internal
 #' @examples
 #' # Coming soon
-all_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H) {
-    .Call('_gmwm_all_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H)
+all_bootstrapper <- function(theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim) {
+    .Call('_gmwm_all_bootstrapper', PACKAGE = 'gmwm', theta, desc, objdesc, scales, model_type, N, robust, eff, alpha, H, method_optim)
 }
 
 #' @title Absolute Value or Modulus of a Complex Number Squared.
@@ -1136,6 +1137,7 @@ code_zero <- function(theta) {
 #' @param omega A \code{mat} that represents the covariance matrix.
 #' @param scales A \code{vec} that contains the scales or taus (2^(1:J))
 #' @param starting A \code{bool} that indicates whether we guessed starting (T) or the user supplied estimates (F).
+#' @param method_optim A \code{string} that changes the method in [stats::optim()].
 #' @return A \code{vec} that contains the parameter estimates from GMWM estimator.
 #' @details
 #' If type = "imu" or "ssm", then parameter vector should indicate the characters of the models that compose the latent or state-space model.
@@ -1157,8 +1159,8 @@ code_zero <- function(theta) {
 #' @keywords internal
 #' @backref src/gmwm_logic.cpp
 #' @backref src/gmwm_logic.h
-gmwm_engine <- function(theta, desc, objdesc, model_type, wv_empir, omega, scales, starting) {
-    .Call('_gmwm_gmwm_engine', PACKAGE = 'gmwm', theta, desc, objdesc, model_type, wv_empir, omega, scales, starting)
+gmwm_engine <- function(theta, desc, objdesc, model_type, wv_empir, omega, scales, starting, method_optim) {
+    .Call('_gmwm_gmwm_engine', PACKAGE = 'gmwm', theta, desc, objdesc, model_type, wv_empir, omega, scales, starting, method_optim)
 }
 
 #' @title Update Wrapper for the GMWM Estimator
@@ -1171,14 +1173,15 @@ gmwm_engine <- function(theta, desc, objdesc, model_type, wv_empir, omega, scale
 #' @param omega A \code{mat} that represents the covariance matrix.
 #' @param scales A \code{vec} that contains the scales or taus (2^(1:J))
 #' @param starting A \code{bool} that indicates whether we guessed starting (T) or the user supplied estimates (F).
+#' @param method_optim A \code{string} that changes the method in [stats::optim()].
 #' @return A \code{field<mat>} that contains the parameter estimates from GMWM estimator.
 #' @author JJB
 #' @references Wavelet variance based estimation for composite stochastic processes, S. Guerrier and Robust Inference for Time Series Models: a Wavelet-Based Framework, S. Guerrier
 #' @keywords internal
 #' @backref src/gmwm_logic.cpp
 #' @backref src/gmwm_logic.h
-gmwm_update_cpp <- function(theta, desc, objdesc, model_type, N, expect_diff, ranged, orgV, scales, wv, starting, compute_v, K, H, G, robust, eff) {
-    .Call('_gmwm_gmwm_update_cpp', PACKAGE = 'gmwm', theta, desc, objdesc, model_type, N, expect_diff, ranged, orgV, scales, wv, starting, compute_v, K, H, G, robust, eff)
+gmwm_update_cpp <- function(theta, desc, objdesc, model_type, N, expect_diff, ranged, orgV, scales, wv, starting, compute_v, K, H, G, robust, eff, method_optim) {
+    .Call('_gmwm_gmwm_update_cpp', PACKAGE = 'gmwm', theta, desc, objdesc, model_type, N, expect_diff, ranged, orgV, scales, wv, starting, compute_v, K, H, G, robust, eff, method_optim)
 }
 
 #' @title Master Wrapper for the GMWM Estimator
@@ -1196,6 +1199,7 @@ gmwm_update_cpp <- function(theta, desc, objdesc, model_type, N, expect_diff, ra
 #' @param G An \code{int} that controls how many guesses at different parameters are made.
 #' @param robust A \code{bool} that indicates whether the estimation should be robust or not.
 #' @param eff A \code{double} that specifies the amount of efficiency required by the robust estimator.
+#' @param method_optim A \code{string} that changes the method in [stats::optim()].
 #' @return A \code{field<mat>} that contains a list of ever-changing estimates...
 #' @author JJB
 #' @references Wavelet variance based estimation for composite stochastic processes, S. Guerrier and Robust Inference for Time Series Models: a Wavelet-Based Framework, S. Guerrier
@@ -1203,8 +1207,8 @@ gmwm_update_cpp <- function(theta, desc, objdesc, model_type, N, expect_diff, ra
 #' @export
 #' @backref src/gmwm_logic.cpp
 #' @backref src/gmwm_logic.h
-gmwm_master_cpp <- function(data, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff) {
-    .Call('_gmwm_gmwm_master_cpp', PACKAGE = 'gmwm', data, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff)
+gmwm_master_cpp <- function(data, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff, method_optim) {
+    .Call('_gmwm_gmwm_master_cpp', PACKAGE = 'gmwm', data, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff, method_optim)
 }
 
 #' @title Master Wrapper for the GMWM Estimator (using WV and Omega as inputs)
@@ -1226,6 +1230,7 @@ gmwm_master_cpp <- function(data, theta, desc, objdesc, model_type, starting, al
 #' @param G An \code{int} that controls how many guesses at different parameters are made.
 #' @param robust A \code{bool} that indicates whether the estimation should be robust or not.
 #' @param eff A \code{double} that specifies the amount of efficiency required by the robust estimator.
+#' @param method_optim A \code{string} that changes the method in [stats::optim()].
 #' @return A \code{field<mat>} that contains a list of ever-changing estimates...
 #' @author JJB, SG
 #' @references Wavelet variance based estimation for composite stochastic processes, S. Guerrier and Robust Inference for Time Series Models: a Wavelet-Based Framework, S. Guerrier
@@ -1233,8 +1238,8 @@ gmwm_master_cpp <- function(data, theta, desc, objdesc, model_type, starting, al
 #' @export
 #' @backref src/gmwm_logic.cpp
 #' @backref src/gmwm_logic.h
-gmwm_master_wv_cpp <- function(wvar, N, expect_diff, omega, ranged, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff) {
-    .Call('_gmwm_gmwm_master_wv_cpp', PACKAGE = 'gmwm', wvar, N, expect_diff, omega, ranged, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff)
+gmwm_master_wv_cpp <- function(wvar, N, expect_diff, omega, ranged, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff, method_optim) {
+    .Call('_gmwm_gmwm_master_wv_cpp', PACKAGE = 'gmwm', wvar, N, expect_diff, omega, ranged, theta, desc, objdesc, model_type, starting, alpha, compute_v, K, H, G, robust, eff, method_optim)
 }
 
 #' @title Randomly guess a starting parameter
@@ -1458,6 +1463,7 @@ theta_ci <- function(theta, A, v_hat, omega, alpha) {
 #' @param tau A \code{vec} containing the scales of a proccess.
 #' @param v_hat A \code{mat} that contains the bootstrapped matrix.
 #' @param wv_empir A \code{vec} that contains the empirical wavelet variance.
+#' @param method_optim A \code{string} that changes the method in [stats::optim()].
 #' @return A \code{vec} that has
 #' \itemize{
 #' \item Test Statistic
@@ -1467,8 +1473,8 @@ theta_ci <- function(theta, A, v_hat, omega, alpha) {
 #' @backref src/inference.cpp
 #' @backref src/inference.h
 #' @keywords internal
-gof_test <- function(theta, desc, objdesc, model_type, tau, v_hat, wv_empir) {
-    .Call('_gmwm_gof_test', PACKAGE = 'gmwm', theta, desc, objdesc, model_type, tau, v_hat, wv_empir)
+gof_test <- function(theta, desc, objdesc, model_type, tau, v_hat, wv_empir, method_optim) {
+    .Call('_gmwm_gof_test', PACKAGE = 'gmwm', theta, desc, objdesc, model_type, tau, v_hat, wv_empir, method_optim)
 }
 
 #' @title Compute the Bootstrapped GoF Test

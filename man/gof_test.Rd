@@ -4,7 +4,7 @@
 \alias{gof_test}
 \title{Compute the GOF Test}
 \usage{
-gof_test(theta, desc, objdesc, model_type, tau, v_hat, wv_empir)
+gof_test(theta, desc, objdesc, model_type, tau, v_hat, wv_empir, method_optim)
 }
 \arguments{
 \item{theta}{A \code{vec} with dimensions N x 1 that contains user-supplied initial values for parameters}
@@ -20,6 +20,8 @@ gof_test(theta, desc, objdesc, model_type, tau, v_hat, wv_empir)
 \item{v_hat}{A \code{mat} that contains the bootstrapped matrix.}
 
 \item{wv_empir}{A \code{vec} that contains the empirical wavelet variance.}
+
+\item{method_optim}{A \code{string} that changes the method in [stats::optim()].}
 }
 \value{
 A \code{vec} that has
