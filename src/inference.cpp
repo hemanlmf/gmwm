@@ -89,6 +89,7 @@ arma::mat theta_ci(const arma::vec& theta,
 //' @param tau A \code{vec} containing the scales of a proccess.
 //' @param v_hat A \code{mat} that contains the bootstrapped matrix.
 //' @param wv_empir A \code{vec} that contains the empirical wavelet variance.
+//' @param method_optim A \code{string} that changes the method in [stats::optim()].
 //' @return A \code{vec} that has
 //' \itemize{
 //' \item Test Statistic
@@ -104,7 +105,8 @@ arma::vec gof_test(arma::vec theta,
                    const arma::field<arma::vec>& objdesc,
                    std::string model_type,
                    const arma::vec& tau,
-                   const arma::mat& v_hat, const arma::vec& wv_empir){
+                   const arma::mat& v_hat, const arma::vec& wv_empir,
+                   std::string method_optim){
   
   arma::mat omega = arma::inv(v_hat);
   
@@ -114,7 +116,8 @@ arma::vec gof_test(arma::vec theta,
                                   wv_empir,
                                   v_hat,
                                   tau,
-                                  false); // starting is false
+                                  false, // starting is false
+                                  method_optim);
   
   
 

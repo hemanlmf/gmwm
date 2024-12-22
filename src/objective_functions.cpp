@@ -81,13 +81,14 @@ double getObjFun(const arma::vec& theta,
 /// [[Rcpp::export]]
 arma::vec Rcpp_OptimStart(const arma::vec&  theta,
                           const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type,
-                          const arma::vec& wv_empir, const arma::vec& tau){
+                          const arma::vec& wv_empir, const arma::vec& tau,
+                          std::string method_optim){
    Rcpp::Environment stats("package:stats"); 
    Rcpp::Function optim = stats["optim"];    
 
    Rcpp::List Opt=optim(Rcpp::_["par"] = theta,
                         Rcpp::_["fn"]  = Rcpp::InternalFunction(&objFunStarting),
-                        Rcpp::_["method"] = "CG",
+                        Rcpp::_["method"] = method_optim,
                         Rcpp::_["desc"] = desc,
                         Rcpp::_["objdesc"] = objdesc,
                         Rcpp::_["model_type"] = model_type,
@@ -102,13 +103,13 @@ arma::vec Rcpp_OptimStart(const arma::vec&  theta,
 /// [[Rcpp::export]]
 arma::vec Rcpp_Optim(const arma::vec&  theta, 
                      const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc, std::string model_type,
-                     const arma::mat& omega, const arma::vec& wv_empir, const arma::vec& tau){
+                     const arma::mat& omega, const arma::vec& wv_empir, const arma::vec& tau, std::string method_optim){
    Rcpp::Environment stats("package:stats"); 
    Rcpp::Function optim = stats["optim"];    
 
    Rcpp::List Opt=optim(Rcpp::_["par"] = theta,
                         Rcpp::_["fn"]  = Rcpp::InternalFunction(&objFun),
-                        Rcpp::_["method"] = "CG",
+                        Rcpp::_["method"] = method_optim,
                         Rcpp::_["desc"] = desc,
                         Rcpp::_["objdesc"] = objdesc,
                         Rcpp::_["model_type"] = model_type,

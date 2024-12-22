@@ -16,7 +16,8 @@ arma::vec gof_test(arma::vec theta,
                    const arma::field<arma::vec>& objdesc,
                    std::string model_type,
                    const arma::vec& tau,
-                   const arma::mat& v_hat, const arma::vec& wv_empir);
+                   const arma::mat& v_hat, const arma::vec& wv_empir,
+                   std::string method_optim = "CG");
   
 arma::vec bootstrap_gof_test(double obj_value, arma::vec bs_obj_values, double alpha, bool bs_gof_p_ci);
 #endif

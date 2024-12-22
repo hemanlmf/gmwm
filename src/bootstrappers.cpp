@@ -103,7 +103,7 @@ arma::mat optimism_bootstrapper(const arma::vec&  theta,
                                 const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc,
                                 const arma::vec& scales, std::string model_type, 
                                 unsigned int N, bool robust, double eff, double alpha,
-                                unsigned int H){
+                                unsigned int H, std::string method_optim){
   unsigned int nb_level = floor(log2(N));
   
   arma::mat theo(nb_level, H);
@@ -123,7 +123,7 @@ arma::mat optimism_bootstrapper(const arma::vec&  theta,
     
     // Obtain the GMWM estimator's estimates. (WV_EMPIR)
     arma::vec est = gmwm_engine(theta, desc, objdesc, model_type, 
-                                wvar.col(0), omega, scales, false);
+                                wvar.col(0), omega, scales, false, method_optim);
     
     
     // Decomposition of the WV.
@@ -148,6 +148,7 @@ arma::mat optimism_bootstrapper(const arma::vec&  theta,
 //' @param robust A \code{bool} indicating robust (T) or classical (F).
 //' @param eff A \code{double} that handles efficiency.
 //' @param H A \code{int} that indicates how many bootstraps should be obtained.
+//' @param method_optim A \code{string} that changes the method in [stats::optim()].
 //' @return A \code{vec} that contains the parameter estimates from GMWM estimator.
 //' @details
 //' Expand in detail...  
@@ -160,7 +161,7 @@ arma::field<arma::mat> opt_n_gof_bootstrapper(const arma::vec&  theta,
                                               const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc,
                                               const arma::vec& scales, std::string model_type, 
                                               unsigned int N, bool robust, double eff, double alpha,
-                                              unsigned int H){
+                                              unsigned int H, std::string method_optim){
   unsigned int nb_level = floor(log2(N));
   
   unsigned int p = theta.n_elem;
@@ -195,10 +196,10 @@ arma::field<arma::mat> opt_n_gof_bootstrapper(const arma::vec&  theta,
     
     // Obtain the GMWM estimator's estimates. (WV_EMPIR)
     arma::vec est = gmwm_engine(theta, desc, objdesc, model_type, 
-                                wv_empir, omega, scales, false);
+                                wv_empir, omega, scales, false, method_optim);
     
     arma::vec est_starting = gmwm_engine(theta_star, desc, objdesc, model_type, 
-                                         wv_empir, omega, scales, true);
+                                         wv_empir, omega, scales, true, method_optim);
     
     // Obtain the objective value function
     obj_values(i) = getObjFun(est_starting, desc, objdesc, model_type, omega, wv_empir, scales); 
@@ -245,7 +246,7 @@ arma::vec gmwm_sd_bootstrapper(const arma::vec&  theta,
                                const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc,
                                const arma::vec& scales, std::string model_type,
                                unsigned int N, bool robust, double eff, double alpha,
-                               unsigned int H){
+                               unsigned int H, std::string method_optim){
   unsigned int nb_level = floor(log2(N));
   
   unsigned int p = theta.n_elem;
@@ -264,7 +265,7 @@ arma::vec gmwm_sd_bootstrapper(const arma::vec&  theta,
     
     // Obtain the GMWM estimator's estimates. (WV_EMPIR)
     mest.col(i) = gmwm_engine(theta, desc, objdesc, model_type, 
-             wvar.col(0), omega, scales, false);
+             wvar.col(0), omega, scales, false, method_optim);
     
   }
   
@@ -328,7 +329,7 @@ arma::field<arma::mat> gmwm_param_bootstrapper(const arma::vec&  theta,
                                                const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc,
                                                const arma::vec& scales, std::string model_type,
                                                unsigned int N, bool robust, double eff, double alpha,
-                                               unsigned int H){
+                                               unsigned int H, std::string method_optim){
   unsigned int nb_level = floor(log2(N));
   
   unsigned int p = theta.n_elem;
@@ -354,7 +355,7 @@ arma::field<arma::mat> gmwm_param_bootstrapper(const arma::vec&  theta,
     
     // Obtain the GMWM estimator's estimates. (WV_EMPIR)
     mest.col(i) = gmwm_engine(theta, desc, objdesc, model_type, 
-             wvar.col(0), omega, scales, false);
+             wvar.col(0), omega, scales, false, method_optim);
   }
   
   // Return the sd of bootstrapped estimates
@@ -388,7 +389,7 @@ arma::field<arma::mat> all_bootstrapper(const arma::vec&  theta,
                                         const std::vector<std::string>& desc, const arma::field<arma::vec>& objdesc,
                                         const arma::vec& scales, std::string model_type, 
                                         unsigned int N, bool robust, double eff, double alpha,
-                                        unsigned int H){
+                                        unsigned int H, std::string method_optim){
   unsigned int nb_level = floor(log2(N));
   
   unsigned int p = theta.n_elem;
@@ -425,14 +426,14 @@ arma::field<arma::mat> all_bootstrapper(const arma::vec&  theta,
     
     // Obtain the GMWM estimator's estimates. (WV_EMPIR)
     arma::vec est = gmwm_engine(theta, desc, objdesc, model_type, 
-                                wv_empir, omega, scales, false);
+                                wv_empir, omega, scales, false, method_optim);
     
     
     arma::vec est_starting = gmwm_engine(theta_star, desc, objdesc, model_type, 
-                                         wv_empir, omega, scales, true);
+                                         wv_empir, omega, scales, true, method_optim);
     
     // Obtain the objective value function
-    obj_values(i) = getObjFun(est_starting, desc, objdesc, model_type, omega, wv_empir, scales); 
+    obj_values(i) = getObjFun(est_starting, desc, objdesc, model_type, omega, wv_empir, scales, method_optim); 
     
     // Decomposition of the WV.
     theo.col(i) = theoretical_wv(est, desc, objdesc, scales);

@@ -71,6 +71,7 @@ arma::vec code_zero(arma::vec theta){
 //' @param omega A \code{mat} that represents the covariance matrix.
 //' @param scales A \code{vec} that contains the scales or taus (2^(1:J))
 //' @param starting A \code{bool} that indicates whether we guessed starting (T) or the user supplied estimates (F).
+//' @param method_optim A \code{string} that changes the method in [stats::optim()].
 //' @return A \code{vec} that contains the parameter estimates from GMWM estimator.
 //' @details
 //' If type = "imu" or "ssm", then parameter vector should indicate the characters of the models that compose the latent or state-space model.
@@ -99,7 +100,8 @@ arma::vec gmwm_engine(const arma::vec& theta,
                       arma::vec wv_empir,
                       arma::mat omega,
                       arma::vec scales,
-                      bool starting){
+                      bool starting,
+                      std::string method_optim){
   
   
   // Transform the Starting values
@@ -107,7 +109,7 @@ arma::vec gmwm_engine(const arma::vec& theta,
                    
   // Apply Yannik's starting circle algorithm if our algorithm "guessed" the initial points
   if(starting){
-    starting_theta = Rcpp_OptimStart(starting_theta, desc, objdesc, model_type, wv_empir, scales);
+    starting_theta = Rcpp_OptimStart(starting_theta, desc, objdesc, model_type, wv_empir, scales, method_optim);
   }
 
   // ------------------------------------
@@ -116,7 +118,7 @@ arma::vec gmwm_engine(const arma::vec& theta,
   
   
   // Find GMWM estimator
-  arma::vec estim_GMWM = Rcpp_Optim(starting_theta, desc, objdesc, model_type, omega, wv_empir, scales);
+  arma::vec estim_GMWM = Rcpp_Optim(starting_theta, desc, objdesc, model_type, omega, wv_empir, scales, method_optim);
   
   return untransform_values(estim_GMWM, desc, objdesc, model_type);       
 
@@ -132,6 +134,7 @@ arma::vec gmwm_engine(const arma::vec& theta,
 //' @param omega A \code{mat} that represents the covariance matrix.
 //' @param scales A \code{vec} that contains the scales or taus (2^(1:J))
 //' @param starting A \code{bool} that indicates whether we guessed starting (T) or the user supplied estimates (F).
+//' @param method_optim A \code{string} that changes the method in [stats::optim()].
 //' @return A \code{field<mat>} that contains the parameter estimates from GMWM estimator.
 //' @author JJB
 //' @references Wavelet variance based estimation for composite stochastic processes, S. Guerrier and Robust Inference for Time Series Models: a Wavelet-Based Framework, S. Guerrier
@@ -146,7 +149,7 @@ arma::field<arma::mat> gmwm_update_cpp(arma::vec theta,
                                       bool starting, 
                                       std::string compute_v, unsigned int K, unsigned int H,
                                       unsigned int G, 
-                                      bool robust, double eff){
+                                      bool robust, double eff, std::string method_optim){
   
   // Number of parameters
   unsigned int np = theta.n_elem;
@@ -172,7 +175,7 @@ arma::field<arma::mat> gmwm_update_cpp(arma::vec theta,
 
   // Obtain the GMWM estimator estimates.
   theta = gmwm_engine(theta, desc, objdesc, model_type, 
-                      wv_empir, omega, scales, starting);
+                      wv_empir, omega, scales, starting, method_optim);
 
   theta = code_zero(theta);
     
@@ -184,7 +187,7 @@ arma::field<arma::mat> gmwm_update_cpp(arma::vec theta,
         omega = arma::inv(diagmat(V));
         
         // The theta update in this case MUST not use Yannick's starting algorithm. Hence, the false value.
-        theta = gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, false);
+        theta = gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, false, method_optim);
         
         // Optim may return a very small value. In this case, instead of saying its zero (yielding a transform issue), make it EPSILON.
         theta = code_zero(theta);
@@ -235,6 +238,7 @@ arma::field<arma::mat> gmwm_update_cpp(arma::vec theta,
 //' @param G An \code{int} that controls how many guesses at different parameters are made.
 //' @param robust A \code{bool} that indicates whether the estimation should be robust or not.
 //' @param eff A \code{double} that specifies the amount of efficiency required by the robust estimator.
+//' @param method_optim A \code{string} that changes the method in [stats::optim()].
 //' @return A \code{field<mat>} that contains a list of ever-changing estimates...
 //' @author JJB
 //' @references Wavelet variance based estimation for composite stochastic processes, S. Guerrier and Robust Inference for Time Series Models: a Wavelet-Based Framework, S. Guerrier
@@ -250,7 +254,8 @@ arma::field<arma::mat> gmwm_master_cpp(arma::vec& data,
                                        double alpha, 
                                        std::string compute_v, unsigned int K, unsigned int H,
                                        unsigned int G, 
-                                       bool robust, double eff){
+                                       bool robust, double eff, 
+                                       std::string method_optim){
   
   // Obtain counts of the different models we need to work with
   std::map<std::string, int> models = count_models(desc);
@@ -377,7 +382,7 @@ arma::field<arma::mat> gmwm_master_cpp(arma::vec& data,
   
   // Obtain the GMWM estimator's estimates.
   theta = gmwm_engine(theta, desc, objdesc, model_type, 
-                      wv_empir, omega, scales, starting);
+                      wv_empir, omega, scales, starting, method_optim);
   
   // Optim may return a very small value. In this case, instead of saying its zero (yielding a transform issue), make it EPSILON.
   theta = code_zero(theta);
@@ -392,7 +397,7 @@ arma::field<arma::mat> gmwm_master_cpp(arma::vec& data,
       omega = arma::inv(diagmat(V));
       
       // The theta update in this case MUST not use Yannick's starting algorithm. Hence, the false value.
-      theta = gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, false);
+      theta = gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, false, method_optim);
       
       // Optim may return a very small value. In this case, instead of saying its zero (yielding a transform issue), make it EPSILON.
       theta = code_zero(theta);
@@ -466,6 +471,7 @@ arma::field<arma::mat> gmwm_master_cpp(arma::vec& data,
 //' @param G An \code{int} that controls how many guesses at different parameters are made.
 //' @param robust A \code{bool} that indicates whether the estimation should be robust or not.
 //' @param eff A \code{double} that specifies the amount of efficiency required by the robust estimator.
+//' @param method_optim A \code{string} that changes the method in [stats::optim()].
 //' @return A \code{field<mat>} that contains a list of ever-changing estimates...
 //' @author JJB, SG
 //' @references Wavelet variance based estimation for composite stochastic processes, S. Guerrier and Robust Inference for Time Series Models: a Wavelet-Based Framework, S. Guerrier
@@ -485,7 +491,8 @@ arma::field<arma::mat> gmwm_master_wv_cpp(arma::mat wvar,
                                           double alpha, 
                                           std::string compute_v, unsigned int K, unsigned int H,
                                           unsigned int G, 
-                                          bool robust, double eff){
+                                          bool robust, double eff,
+                                          std::string method_optim){
   
   // Obtain counts of the different models we need to work with
   std::map<std::string, int> models = count_models(desc);
@@ -529,7 +536,7 @@ arma::field<arma::mat> gmwm_master_wv_cpp(arma::mat wvar,
   
   // Obtain the GMWM estimator's estimates.
   theta = gmwm_engine(theta, desc, objdesc, model_type, 
-                      wv_empir, omega, scales, starting);
+                      wv_empir, omega, scales, starting, method_optim);
   
   // Optim may return a very small value. In this case, instead of saying its zero (yielding a transform issue), make it EPSILON.
   theta = code_zero(theta);
@@ -544,7 +551,7 @@ arma::field<arma::mat> gmwm_master_wv_cpp(arma::mat wvar,
       omega = arma::inv(diagmat(V));
       
       // The theta update in this case MUST not use Yannick's starting algorithm. Hence, the false value.
-      theta = gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, false);
+      theta = gmwm_engine(theta, desc, objdesc, model_type, wv_empir, omega, scales, false, method_optim);
       
       // Optim may return a very small value. In this case, instead of saying its zero (yielding a transform issue), make it EPSILON.
       theta = code_zero(theta);
