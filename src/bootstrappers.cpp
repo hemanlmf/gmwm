@@ -104,7 +104,7 @@ arma::mat optimism_bootstrapper(const arma::vec&  theta,
                                 const arma::vec& scales, std::string model_type, 
                                 unsigned int N, bool robust, double eff, double alpha,
                                 unsigned int H, std::string method_optim){
-  unsigned int nb_level = floor(log2(N));
+  unsigned int nb_level = scales.n_elem;
   
   arma::mat theo(nb_level, H);
   
@@ -162,7 +162,7 @@ arma::field<arma::mat> opt_n_gof_bootstrapper(const arma::vec&  theta,
                                               const arma::vec& scales, std::string model_type, 
                                               unsigned int N, bool robust, double eff, double alpha,
                                               unsigned int H, std::string method_optim){
-  unsigned int nb_level = floor(log2(N));
+  unsigned int nb_level = scales.n_elem;
   
   unsigned int p = theta.n_elem;
   
@@ -247,7 +247,7 @@ arma::vec gmwm_sd_bootstrapper(const arma::vec&  theta,
                                const arma::vec& scales, std::string model_type,
                                unsigned int N, bool robust, double eff, double alpha,
                                unsigned int H, std::string method_optim){
-  unsigned int nb_level = floor(log2(N));
+  unsigned int nb_level = scales.n_elem;
   
   unsigned int p = theta.n_elem;
   
@@ -330,7 +330,7 @@ arma::field<arma::mat> gmwm_param_bootstrapper(const arma::vec&  theta,
                                                const arma::vec& scales, std::string model_type,
                                                unsigned int N, bool robust, double eff, double alpha,
                                                unsigned int H, std::string method_optim){
-  unsigned int nb_level = floor(log2(N));
+  unsigned int nb_level = scales.n_elem;
   
   unsigned int p = theta.n_elem;
   
@@ -390,7 +390,7 @@ arma::field<arma::mat> all_bootstrapper(const arma::vec&  theta,
                                         const arma::vec& scales, std::string model_type, 
                                         unsigned int N, bool robust, double eff, double alpha,
                                         unsigned int H, std::string method_optim){
-  unsigned int nb_level = floor(log2(N));
+  unsigned int nb_level = scales.n_elem;
   
   unsigned int p = theta.n_elem;
   
